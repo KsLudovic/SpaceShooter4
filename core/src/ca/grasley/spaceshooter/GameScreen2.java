@@ -29,15 +29,9 @@ import java.util.Locale;
 
 import javax.xml.soap.Text;
 
-class GameScreen implements Screen {
+class GameScreen2 implements Screen {
 
-    ///
-    private Game game;
-
-    SpaceShooterGame spaceShooterGame;
-
-    // next stage
-    private GameScreen2 gameScreen2;
+    Game game;
 
     //screen
     private final Camera camera;
@@ -72,7 +66,7 @@ class GameScreen implements Screen {
 
     Sound laserSoundPlayer = Gdx.audio.newSound(Gdx.files.internal("laserRetro_000.ogg"));
     Sound explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosionCrunch_000.ogg"));
-   // Sound explosionPlayer = Gdx.audio.newSound(Gdx.files.internal("explosionCrunch_001.ogg"));
+    // Sound explosionPlayer = Gdx.audio.newSound(Gdx.files.internal("explosionCrunch_001.ogg"));
 
 
     //timing
@@ -109,8 +103,7 @@ class GameScreen implements Screen {
     // DISPLAY THINGGIES
     BitmapFont font;
     float hudVerticalMargin, hudLeftX, hudRightX, hudCentreX,hudCentreY, hudRow1Y, hudRow2Y, hudSectionWidth;
-    GameScreen(Game game){
-
+    GameScreen2(Game game){
         this.game = game;
 
         // SCREEN
@@ -295,7 +288,7 @@ class GameScreen implements Screen {
         font.draw(batch, "Score", hudLeftX, hudRow1Y,hudSectionWidth, Align.left,false);
         font.draw(batch,"Shield", hudCentreX, hudRow1Y,hudSectionWidth,Align.center,false);
         font.draw(batch, "Lives", hudRightX,hudRow1Y,hudSectionWidth,Align.right,false);
-        font.draw(batch,"STAGE 1",hudCentreX,hudCentreY,hudSectionWidth,Align.center,false);
+        font.draw(batch,"STAGE 2",hudCentreX,hudCentreY,hudSectionWidth,Align.center,false);
 
 
         font.draw(batch,String.format(Locale.getDefault(), "%06d",score),hudLeftX, hudRow2Y,
@@ -317,15 +310,15 @@ class GameScreen implements Screen {
         float timeBetweenEnemySpawns = 1.5f;
         if(enemySpawnTimer> timeBetweenEnemySpawns && enemyShipList.size()< 5){
 
-        enemyShipList.add(new EnemyShip(SpaceShooterGame.random.nextFloat()*(WORLD_WIDTH-10)+5,
-        WORLD_HEIGHT*9/10,
-            6, 6,
-            15, 1,
-            2f, 2, 40, 1f,
-        enemyShipTextureRegion, enemyShieldTextureRegion, enemyLaserTextureRegion));
-        enemySpawnTimer-= timeBetweenEnemySpawns;
+            enemyShipList.add(new EnemyShip(SpaceShooterGame.random.nextFloat()*(WORLD_WIDTH-10)+5,
+                    WORLD_HEIGHT*9/10,
+                    6, 6,
+                    15, 1,
+                    2f, 2, 40, 1f,
+                    enemyShipTextureRegion, enemyShieldTextureRegion, enemyLaserTextureRegion));
+            enemySpawnTimer-= timeBetweenEnemySpawns;
 
-         }
+        }
     }
     private void spawnEnemyTank(float deltaTime){
         enemyTankTimer+= deltaTime;
@@ -385,7 +378,7 @@ class GameScreen implements Screen {
             // calculate x y
             Vector2 playerShipCenter = new Vector2(
                     playerShip.boundingBox.x+playerShip.boundingBox.width/2,
-                      playerShip.boundingBox.y+ playerShip.boundingBox.height/2);
+                    playerShip.boundingBox.y+ playerShip.boundingBox.height/2);
 
             float touchDistance = touchPoint.dst(playerShipCenter);
 
@@ -395,17 +388,17 @@ class GameScreen implements Screen {
                 float yTouchdiff = touchPoint.y - playerShipCenter.y;
 
 
-            //scale to the max speed
-            float xMove = xTouchdiff / touchDistance * playerShip.movementSpeed*deltaTime;
-            float yMove = yTouchdiff / touchDistance * playerShip.movementSpeed*deltaTime;
+                //scale to the max speed
+                float xMove = xTouchdiff / touchDistance * playerShip.movementSpeed*deltaTime;
+                float yMove = yTouchdiff / touchDistance * playerShip.movementSpeed*deltaTime;
 
-            if(xMove>0) xMove = Math.min(xMove,rightLimit);
-            else xMove = Math.max(xMove,leftLimit);
+                if(xMove>0) xMove = Math.min(xMove,rightLimit);
+                else xMove = Math.max(xMove,leftLimit);
 
-            if(yMove>0) yMove = Math.min(yMove,upLimit);
-            else yMove = Math.max(yMove,downLimit);
+                if(yMove>0) yMove = Math.min(yMove,upLimit);
+                else yMove = Math.max(yMove,downLimit);
 
-            playerShip.translate(xMove,yMove);
+                playerShip.translate(xMove,yMove);
 
             }
 
@@ -514,7 +507,7 @@ class GameScreen implements Screen {
                     explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
                     explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
                     game.setScreen(new GameScreen2(game));
-                   /// remplace with winning screen
+                    /// remplace with winning screen
 
 
 
@@ -596,10 +589,10 @@ class GameScreen implements Screen {
             }
         }
         // boss
-            if (rapidFireBoss.canFireLaser()) {
-                Laser[] lasers = rapidFireBoss.fireLasers();
-                enemyLaserList.addAll(Arrays.asList(lasers));
-            }
+        if (rapidFireBoss.canFireLaser()) {
+            Laser[] lasers = rapidFireBoss.fireLasers();
+            enemyLaserList.addAll(Arrays.asList(lasers));
+        }
 
 
 

@@ -2,13 +2,14 @@ package ca.grasley.spaceshooter;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 
 class RapidFireBoss extends Ship {
 
     Vector2 directionVector;
     float timeSinceLastDirectionChange = 0;
-    float directionFrequency = 1f;
+    float directionFrequency = 3f;
 
     public RapidFireBoss(float xCentre, float yCentre,
                      float width, float height,
@@ -60,6 +61,9 @@ class RapidFireBoss extends Ship {
         timeSinceLastShot = 0;
 
         return laser;
+    }
+    public void bossTranslation(float xChange, float yChange) {
+        boundingBox.setPosition(boundingBox.x + xChange, boundingBox.y);
     }
 
     @Override

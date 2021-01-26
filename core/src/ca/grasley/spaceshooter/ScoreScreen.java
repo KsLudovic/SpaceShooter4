@@ -3,7 +3,10 @@ package ca.grasley.spaceshooter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -12,15 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-
-public class MenuScreen implements Screen {
+public class ScoreScreen implements Screen {
 
     private Game game;
-    private SpaceShooterGame parent;
+    private SpaceShooterGame spaceShooterGame;
     private Stage stage;
-
-
-
 
     @Override
     public void show() {
@@ -29,45 +28,16 @@ public class MenuScreen implements Screen {
         table.setDebug(true);
         stage.addActor(table);
         Skin skin = new Skin(Gdx.files.internal("skin/neon-ui.json"));
-        TextButton newGame = new TextButton("New Game", skin );
-        TextButton score = new TextButton("Leading Board", skin);
-        TextButton preferences = new TextButton("Preferences",skin);
-        TextButton exit = new TextButton("Exit", skin);
-        table.add(newGame).fillX().uniformX();
+        TextButton menu = new TextButton("Menu", skin);
         table.row().pad(10, 0, 10, 0);
-        table.add(score).fillX().uniformX();
-         table.row();
-         table.add(preferences).fillX().uniformX();
-         table.row().pad(10, 0, 10, 0);
-        table.add(exit).fillX().uniformX();
-
-        exit.addListener(new ChangeListener() {
+        menu.setPosition(10,10);
+       table.add(menu).expand().bottom().left();
+        menu.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
+                game.setScreen(new MenuScreen(game));
             }
         });
-
-        newGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new GameScreen(game));
-            }
-        });
-        score.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new ScoreScreen(game));
-            }
-        });
-        preferences.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(new PreferenceScreen(game));
-            }
-        });
-
-
 
     }
 
@@ -78,15 +48,10 @@ public class MenuScreen implements Screen {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
 
-
     }
 
     @Override
     public void resize(int width, int height) {
-
-        stage.getViewport().update(width, height, true);
-
-
 
     }
 
@@ -107,11 +72,10 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
-
         stage.dispose();
 
     }
-    public MenuScreen(Game game){
+    public ScoreScreen(Game game){
         this.game = game;
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -119,4 +83,5 @@ public class MenuScreen implements Screen {
         stage.draw();
 
     }
+
 }

@@ -1,0 +1,111 @@
+
+laser-blue.png
+size: 1024,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ball-ray
+  rotate: false
+  xy: 646, 38
+  size: 65, 211
+  orig: 65, 211
+  offset: 0, 0
+  index: -1
+broad-2
+  rotate: false
+  xy: 2, 60
+  size: 115, 189
+  orig: 115, 189
+  offset: 0, 0
+  index: -1
+broad-one
+  rotate: false
+  xy: 119, 125
+  size: 135, 124
+  orig: 135, 124
+  offset: 0, 0
+  index: -1
+curve-long
+  rotate: false
+  xy: 2, 14
+  size: 172, 44
+  orig: 172, 44
+  offset: 0, 0
+  index: -1
+curve-long-triple
+  rotate: false
+  xy: 176, 41
+  size: 172, 82
+  orig: 172, 82
+  offset: 0, 0
+  index: -1
+curve-one
+  rotate: false
+  xy: 445, 86
+  size: 111, 75
+  orig: 111, 75
+  offset: 0, 0
+  index: -1
+curve-triple
+  rotate: false
+  xy: 362, 163
+  size: 111, 86
+  orig: 111, 86
+  offset: 0, 0
+  index: -1
+drop
+  rotate: false
+  xy: 748, 154
+  size: 55, 95
+  orig: 55, 95
+  offset: 0, 0
+  index: -1
+drop-2
+  rotate: false
+  xy: 350, 39
+  size: 93, 104
+  orig: 93, 104
+  offset: 0, 0
+  index: -1
+drop-3
+  rotate: false
+  xy: 445, 2
+  size: 53, 82
+  orig: 53, 82
+  offset: 0, 0
+  index: -1
+long-ray
+  rotate: false
+  xy: 713, 80
+  size: 33, 169
+  orig: 33, 169
+  offset: 0, 0
+  index: -1
+oval
+  rotate: false
+  xy: 475, 180
+  size: 100, 69
+  orig: 100, 69
+  offset: 0, 0
+  index: -1
+round
+  rotate: false
+  xy: 256, 145
+  size: 104, 104
+  orig: 104, 104
+  offset: 0, 0
+  index: -1
+s-projectile
+  rotate: false
+  xy: 558, 90
+  size: 86, 88
+  orig: 86, 88
+  offset: 0, 0
+  index: -1
+short-ray
+  rotate: false
+  xy: 748, 56
+  size: 33, 96
+  orig: 33, 96
+  offset: 0, 0
+  index: -1
