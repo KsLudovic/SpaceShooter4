@@ -7,6 +7,16 @@ sourceSets.main.resources.srcDirs = ["../android/assets"]
 project.ext.mainClassName = "ca.grasley.spaceshooter.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets")
 
+jar {
+    manifest {
+        attributes "Main-Class": "ca.shaxomann.spaceshooter.desktop;"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 task run(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName
     classpath = sourceSets.main.runtimeClasspath

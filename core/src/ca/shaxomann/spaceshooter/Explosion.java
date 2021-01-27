@@ -17,19 +17,19 @@ public class Explosion {
         this.boudingBox = boudingBox;
         
         // splitting text
-        TextureRegion[][] textureRegion2D = TextureRegion.split(texture,62,62);
+        TextureRegion[][] textureRegion2D = TextureRegion.split(texture,512,512);
         
         //convert to array
         
-        TextureRegion[] textureRegion1D = new TextureRegion[16];
+        TextureRegion[] textureRegion1D = new TextureRegion[64];
         int index= 0;
-        for(int i= 0; i<4; i++){
-            for(int j=0; j<4; j++) {
+        for(int i= 0; i<8; i++){
+            for(int j=0; j<8; j++) {
                 textureRegion1D[index++] = textureRegion2D[i][j];
             }
         }
 
-        explosionAnimation = new Animation<TextureRegion>(totalAnimationTime/16, textureRegion1D);
+        explosionAnimation = new Animation<TextureRegion>(totalAnimationTime/64, textureRegion1D);
         explosionTimer = 0;
         
     }
@@ -40,8 +40,8 @@ public class Explosion {
     
     public void draw(SpriteBatch batch){
         batch.draw(explosionAnimation.getKeyFrame(explosionTimer),
-                boudingBox.x,boudingBox.y,
-                boudingBox.width,boudingBox.height);
+                boudingBox.x-8,boudingBox.y-8,
+                boudingBox.width+15,boudingBox.height+15);
                 
     }
     

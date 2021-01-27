@@ -308,7 +308,7 @@ class GameScreen2 implements Screen {
         if(enemySpawnTimer> timeBetweenEnemySpawns && enemyShipList.size()< 5){
 
             enemyShipList.add(new ca.shaxomann.spaceshooter.EnemyShip(ca.shaxomann.spaceshooter.SpaceShooterGame.random.nextFloat()*(WORLD_WIDTH-10)+5,
-                    WORLD_HEIGHT*9/10,
+                    WORLD_HEIGHT*8/10,
                     6, 6,
                     15, 1,
                     2f, 2, 40, 1f,
@@ -324,7 +324,7 @@ class GameScreen2 implements Screen {
         if(enemyTankTimer> timeBetweenTankSpawns && enemyTankShipList.size()<3){
 
             enemyTankShipList.add(new ca.shaxomann.spaceshooter.EnemyTank(SpaceShooterGame.random.nextFloat()*(WORLD_WIDTH-10)+5,
-                    WORLD_HEIGHT*9/10,10,10,
+                    WORLD_HEIGHT*8/10,10,10,
                     7,5,4f,4,20,2.5f,
                     enemyTankTextureRegion,enemyShieldTextureRegion,enemyLaserTextureRegion));
             enemyTankTimer -= timeBetweenTankSpawns;
@@ -413,7 +413,7 @@ class GameScreen2 implements Screen {
         leftLimit= -enemyShip.boundingBox.x;
         downLimit= (float)WORLD_HEIGHT/2 -enemyShip.boundingBox.y;
         rightLimit= WORLD_WIDTH - enemyShip.boundingBox.x - enemyShip.boundingBox.width;
-        upLimit = WORLD_HEIGHT*9/10 - enemyShip.boundingBox.y - enemyShip.boundingBox.height;
+        upLimit = WORLD_HEIGHT*8/10 - enemyShip.boundingBox.y - enemyShip.boundingBox.height;
         float xMove = enemyShip.getDirectionVector().x * enemyShip.movementSpeed*deltaTime;
         float yMove = enemyShip.getDirectionVector().y * enemyShip.movementSpeed*deltaTime;
 
@@ -430,7 +430,7 @@ class GameScreen2 implements Screen {
         leftLimit= -enemyTank.boundingBox.x;
         downLimit= (float)WORLD_HEIGHT/3 -enemyTank.boundingBox.y;
         rightLimit= WORLD_WIDTH - enemyTank.boundingBox.x - enemyTank.boundingBox.width;
-        upLimit = WORLD_HEIGHT*9/10 - enemyTank.boundingBox.y - enemyTank.boundingBox.height;
+        upLimit = WORLD_HEIGHT*8/10 - enemyTank.boundingBox.y - enemyTank.boundingBox.height;
         float xMove = enemyTank.getDirectionVector().x * enemyTank.movementSpeed*deltaTime;
         float yMove = enemyTank.getDirectionVector().y * enemyTank.movementSpeed*deltaTime;
 
@@ -500,6 +500,8 @@ class GameScreen2 implements Screen {
                 if(rapidFireBoss.hitAndCheckIfDead(laser)){
                     score +=15000;
                     explosionSound.play(2f);
+                    ambiant.stop();
+                    ambiant.dispose();
                     explosionList.add(new ca.shaxomann.spaceshooter.Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
                     explosionList.add(new ca.shaxomann.spaceshooter.Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
                     explosionList.add(new ca.shaxomann.spaceshooter.Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));

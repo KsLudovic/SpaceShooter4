@@ -46,6 +46,7 @@ class GameScreen implements Screen {
     //graphics
     private final SpriteBatch batch;
     private final Texture explosionTexture;
+    private Texture sparkTexture;
 
     private final TextureRegion[] backgrounds;
     private final float backgroundHeight; //height of background in World units
@@ -89,7 +90,7 @@ class GameScreen implements Screen {
 
     //game objects
     private final PlayerShip playerShip;
-    private ca.shaxomann.spaceshooter.RapidFireBoss rapidFireBoss;
+    RapidFireBoss rapidFireBoss;
     private final LinkedList<EnemyShip> enemyShipList;
     private final LinkedList<EnemyTank> enemyTankShipList;
     private  LinkedList<ca.shaxomann.spaceshooter.RapidFireBoss> rapidFireBossLinkedList;
@@ -98,10 +99,12 @@ class GameScreen implements Screen {
     private final LinkedList<Laser> tankLaserList;
     private  final LinkedList<Laser> rapidFireLaserList;
     private final LinkedList<Explosion> explosionList;
+    private  LinkedList<SparkEffect> sparkList;
 
     // SHIPS DETAILS
     private final float xCenter = WORLD_WIDTH / 2;
     private final float yCenter = WORLD_HEIGHT / 4;
+    private float fireSpeed = 0.3f;
 
 
 
@@ -155,7 +158,8 @@ class GameScreen implements Screen {
         rapidFireBossLaserTextureRegion = textureAtlas3.findRegion("broad-one");
         rapidFireBossLaserTextureRegion.flip(false,true);
 
-        explosionTexture = new Texture("explode.png");
+        explosionTexture = new Texture("hdexplo.png");
+        sparkTexture = new Texture("spark.png");
 
         // initialize healthbar of boss
 
@@ -167,14 +171,14 @@ class GameScreen implements Screen {
         playerShip = new PlayerShip(xCenter, yCenter,
                 6, 6,
                 40, 5,
-                1f, 8, 100, 0.3f,
+                1f, 8, 100, fireSpeed,
                 playerShipTextureRegion, playerShieldTextureRegion, playerLaserTextureRegion);
 
         // boss
 
         rapidFireBoss = new ca.shaxomann.spaceshooter.RapidFireBoss(WORLD_WIDTH/2,WORLD_HEIGHT+1,
                 60,30,
-                2, 200, 6,5, 50,2f,
+                2, 500, 6,5, 50,2f,
                 rapidFireBossTextureRegion,enemyShieldTextureRegion,rapidFireBossLaserTextureRegion);
 
 
@@ -189,6 +193,7 @@ class GameScreen implements Screen {
         rapidFireLaserList = new LinkedList<>();
 
         explosionList = new LinkedList<>();
+        sparkList = new LinkedList<>();
 
         batch = new SpriteBatch();
 
@@ -241,6 +246,7 @@ class GameScreen implements Screen {
         // boss
         rapidFireBoss.update(deltaTime);
         updateAndRenderHealthBar(deltaTime);
+        updateAndRenderSpark(deltaTime);
 
 
         // make ennemies
@@ -282,6 +288,7 @@ class GameScreen implements Screen {
 //        enemyBossShipRapidFire.draw(batch);
 
         //lasers
+
         renderLasers(deltaTime);
 
         //detect collisions between lasers and ships
@@ -289,6 +296,7 @@ class GameScreen implements Screen {
 
         //explosions
         updateAndRenderExplosions(deltaTime);
+
 
         // HUD RENDERING
         updateAndRenderHUD();
@@ -493,7 +501,7 @@ class GameScreen implements Screen {
                         score+=50;
                         explosionSound.play(0.5f);
                         enemyShipListIterator.remove();
-                        explosionList.add(new Explosion(explosionTexture,new Rectangle(enemyShip.boundingBox),0.7f));
+                        explosionList.add(new Explosion(explosionTexture,new Rectangle(enemyShip.boundingBox),1.2f));
 
                     }
                     laserListIterator.remove();
@@ -510,7 +518,7 @@ class GameScreen implements Screen {
                         score+=500;
                         explosionSound.play(0.8f);
                         enemyTankListIterator.remove();
-                        explosionList.add(new Explosion(explosionTexture,new Rectangle(enemyTank.boundingBox),0.7f));
+                        explosionList.add(new Explosion(explosionTexture,new Rectangle(enemyTank.boundingBox),1.2f));
 
                     }
                     laserListIterator.remove();
@@ -523,10 +531,13 @@ class GameScreen implements Screen {
                 if(rapidFireBoss.hitAndCheckIfDead(laser)){
                     score +=15000;
                     explosionSound.play(2f);
-                    explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
-                    explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
-                    explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
+                    ambiant.stop();
+                    ambiant.dispose();
+                    explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1.2f));
+                    explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1.2f));
+                    explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1.2f));
                     game.setScreen(new GameScreen2(game));
+
 
                    /// remplace with winning screen
 
@@ -586,6 +597,21 @@ class GameScreen implements Screen {
         }
 
     }
+    private void updateAndRenderSpark(float deltaTime) {
+        ListIterator<SparkEffect> sparkListIterator = sparkList.listIterator();
+        while(sparkListIterator.hasNext()){
+            SparkEffect sparkEffect = sparkListIterator.next();
+            sparkEffect.update(deltaTime);
+            if(sparkEffect.isFinished()){
+               sparkListIterator.remove();
+            }
+            else{
+                sparkEffect.draw(batch);
+            }
+        }
+
+    }
+
 
     private void renderLasers(float deltaTime) {
 
@@ -594,8 +620,11 @@ class GameScreen implements Screen {
         //player lasers
         if (playerShip.canFireLaser()) {
             Laser[] lasers = playerShip.fireLasers();
+            sparkList.add(new SparkEffect(sparkTexture,new Rectangle(playerShip.boundingBox),fireSpeed*1));
+
             playerLaserList.addAll(Arrays.asList(lasers));
             laserSoundPlayer.play(0.05f);
+
 
         }
         //enemy lasers

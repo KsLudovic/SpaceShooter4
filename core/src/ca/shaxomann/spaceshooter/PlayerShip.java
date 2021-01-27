@@ -24,12 +24,13 @@ class PlayerShip extends ca.shaxomann.spaceshooter.Ship {
     }
 
     @Override
-    public ca.shaxomann.spaceshooter.Laser[] fireLasers() {
-        ca.shaxomann.spaceshooter.Laser[] laser = new ca.shaxomann.spaceshooter.Laser[2];
-        laser[0] = new ca.shaxomann.spaceshooter.Laser(boundingBox.x + boundingBox.width * 0.20f, boundingBox.y + boundingBox.height * 0.50f,
+    public Laser[] fireLasers() {
+        Laser[] laser = new Laser[2];
+
+        laser[0] = new Laser(boundingBox.x + boundingBox.width * 0.20f, boundingBox.y + boundingBox.height * 0.50f,
                 laserWidth, laserHeight,
                 laserMovementSpeed, laserTextureRegion);
-        laser[1] = new ca.shaxomann.spaceshooter.Laser(boundingBox.x + boundingBox.width * 0.80f, boundingBox.y + boundingBox.height * 0.50f,
+        laser[1] = new Laser(boundingBox.x + boundingBox.width * 0.80f, boundingBox.y + boundingBox.height * 0.50f,
                 laserWidth, laserHeight,
                 laserMovementSpeed, laserTextureRegion);
 
