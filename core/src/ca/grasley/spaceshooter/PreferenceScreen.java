@@ -1,14 +1,19 @@
 package ca.grasley.spaceshooter;
 
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
@@ -18,17 +23,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class PreferenceScreen implements Screen {
-    private SpaceShooterGame parent;
+
     private Game game;
+    private SpaceShooterGame spaceShooterGame;
     private Stage stage;
-
-    private Label titleLabel;
-    private Label volumeMusicLabel;
-    private Label volumeSoundLabel;
-    private Label musicOnOffLabel;
-    private Label soundOnOffLabel;
-
-
 
     @Override
     public void show() {
@@ -36,11 +34,12 @@ public class PreferenceScreen implements Screen {
         table.setFillParent(true);
         table.setDebug(true);
         stage.addActor(table);
-        Skin skin = new Skin(Gdx.files.internal("skin/neon-ui.json"));
+        Skin skin = new Skin(Gdx.files.internal("tracer/skin/tracer-ui.json"));
 
-        // VOLUME SLIDER
+// VOLUME SLIDER
         final Slider volumeMusicSlider = new Slider( 0f, 1f, 0.1f,false, skin );
-        volumeMusicSlider.setValue( parent.getPreferences().getMusicVolume() );
+        final SpaceShooterGame parent = new SpaceShooterGame();
+   /*    volumeMusicSlider.setValue( parent.getPreferences().getMusicVolume() );
         volumeMusicSlider.addListener( new EventListener() {
             @Override
             public boolean handle(Event event) {
@@ -49,7 +48,7 @@ public class PreferenceScreen implements Screen {
             }
         });
         final CheckBox musicCheckbox = new CheckBox(null, skin);
-        musicCheckbox.setChecked( parent.getPreferences().isMusicEnabled() );
+     /*   musicCheckbox.setChecked( parent.getPreferences().isMusicEnabled() );
         musicCheckbox.addListener( new EventListener() {
             @Override
             public boolean handle(Event event) {
@@ -57,8 +56,8 @@ public class PreferenceScreen implements Screen {
                 parent.getPreferences().setMusicEnabled( enabled );
                 return false;
             }
-        });
-        final TextButton backButton = new TextButton("Back", skin, "small"); // the extra argument here "small" is used to set the button to the smaller version instead of the big default version
+        }); */
+        final TextButton backButton = new TextButton("Back", skin); // the extra argument here "small" is used to set the button to the smaller version instead of the big default version
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -66,11 +65,11 @@ public class PreferenceScreen implements Screen {
             }
         });
 
-        titleLabel = new Label( "Preferences", skin );
-        volumeMusicLabel = new Label( null, skin );
-        volumeSoundLabel = new Label( null, skin );
-        musicOnOffLabel = new Label( null, skin );
-        soundOnOffLabel = new Label( null, skin );
+        Label titleLabel = new Label("Preferences", skin);
+        Label volumeMusicLabel = new Label(null, skin);
+        Label volumeSoundLabel = new Label(null, skin);
+        Label musicOnOffLabel = new Label(null, skin);
+        Label soundOnOffLabel = new Label(null, skin);
 
 
         table.add(titleLabel);
@@ -79,16 +78,15 @@ public class PreferenceScreen implements Screen {
         table.add(volumeMusicSlider);
         table.row();
         table.add(musicOnOffLabel);
-        table.add(musicCheckbox);
+      //  table.add(musicCheckbox);
         table.row();
         table.add(volumeSoundLabel);
-       // table.add(soundMusicSlider);
+       //  table.add(soundMusicSlider);
         table.row();
         table.add(soundOnOffLabel);
-       // table.add(soundEffectsCheckbox);
+       //  table.add(soundEffectsCheckbox);
         table.row();
         table.add(backButton);
-
 
 
     }
@@ -104,7 +102,6 @@ public class PreferenceScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
 
     }
 
@@ -136,4 +133,6 @@ public class PreferenceScreen implements Screen {
         stage.draw();
 
     }
+
 }
+

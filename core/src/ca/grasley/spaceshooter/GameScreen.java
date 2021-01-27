@@ -31,8 +31,11 @@ import javax.xml.soap.Text;
 
 class GameScreen implements Screen {
 
+
+
     ///
     private Game game;
+    private int score= 0;
 
     SpaceShooterGame spaceShooterGame;
 
@@ -98,11 +101,16 @@ class GameScreen implements Screen {
     private final LinkedList<Explosion> explosionList;
 
     // SHIPS DETAILS
-    private int score = 0;
     private final float xCenter = WORLD_WIDTH / 2;
     private final float yCenter = WORLD_HEIGHT / 4;
 
+
+
     // invulnerability related
+
+    
+    // SCORE METHOD
+    
 
 
 
@@ -156,13 +164,13 @@ class GameScreen implements Screen {
         playerShip = new PlayerShip(xCenter, yCenter,
                 6, 6,
                 40, 5,
-                1f, 7, 100, 0.3f,
+                1f, 8, 100, 0.3f,
                 playerShipTextureRegion, playerShieldTextureRegion, playerLaserTextureRegion);
 
         // boss
         rapidFireBoss = new RapidFireBoss(WORLD_WIDTH/2,WORLD_HEIGHT+1,
                 60,30,
-                2, 20, 6,5, 50,2f,
+                2, 200, 6,5, 50,2f,
                 rapidFireBossTextureRegion,enemyShieldTextureRegion,rapidFireBossLaserTextureRegion);
 
 
@@ -318,7 +326,7 @@ class GameScreen implements Screen {
         if(enemySpawnTimer> timeBetweenEnemySpawns && enemyShipList.size()< 5){
 
         enemyShipList.add(new EnemyShip(SpaceShooterGame.random.nextFloat()*(WORLD_WIDTH-10)+5,
-        WORLD_HEIGHT*9/10,
+        WORLD_HEIGHT*8/10,
             6, 6,
             15, 1,
             2f, 2, 40, 1f,
@@ -334,7 +342,7 @@ class GameScreen implements Screen {
         if(enemyTankTimer> timeBetweenTankSpawns && enemyTankShipList.size()<3){
 
             enemyTankShipList.add(new EnemyTank(SpaceShooterGame.random.nextFloat()*(WORLD_WIDTH-10)+5,
-                    WORLD_HEIGHT*9/10,10,10,
+                    WORLD_HEIGHT*8/10,10,10,
                     7,5,4f,4,20,2.5f,
                     enemyTankTextureRegion,enemyShieldTextureRegion,enemyLaserTextureRegion));
             enemyTankTimer -= timeBetweenTankSpawns;
@@ -423,7 +431,7 @@ class GameScreen implements Screen {
         leftLimit= -enemyShip.boundingBox.x;
         downLimit= (float)WORLD_HEIGHT/2 -enemyShip.boundingBox.y;
         rightLimit= WORLD_WIDTH - enemyShip.boundingBox.x - enemyShip.boundingBox.width;
-        upLimit = WORLD_HEIGHT*9/10 - enemyShip.boundingBox.y - enemyShip.boundingBox.height;
+        upLimit = WORLD_HEIGHT*8/10 - enemyShip.boundingBox.y - enemyShip.boundingBox.height;
         float xMove = enemyShip.getDirectionVector().x * enemyShip.movementSpeed*deltaTime;
         float yMove = enemyShip.getDirectionVector().y * enemyShip.movementSpeed*deltaTime;
 
@@ -440,7 +448,7 @@ class GameScreen implements Screen {
         leftLimit= -enemyTank.boundingBox.x;
         downLimit= (float)WORLD_HEIGHT/3 -enemyTank.boundingBox.y;
         rightLimit= WORLD_WIDTH - enemyTank.boundingBox.x - enemyTank.boundingBox.width;
-        upLimit = WORLD_HEIGHT*9/10 - enemyTank.boundingBox.y - enemyTank.boundingBox.height;
+        upLimit = WORLD_HEIGHT*8/10 - enemyTank.boundingBox.y - enemyTank.boundingBox.height;
         float xMove = enemyTank.getDirectionVector().x * enemyTank.movementSpeed*deltaTime;
         float yMove = enemyTank.getDirectionVector().y * enemyTank.movementSpeed*deltaTime;
 
@@ -514,6 +522,7 @@ class GameScreen implements Screen {
                     explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
                     explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
                     game.setScreen(new GameScreen2(game));
+
                    /// remplace with winning screen
 
 
@@ -537,8 +546,10 @@ class GameScreen implements Screen {
                     explosionSound.play(2f,0.3f,0f);
                     playerShip.shield = 5;
                     playerShip.boundingBox.setPosition(xCenter,yCenter);
-                    if(playerShip.lives == 0) Gdx.app.exit();
-                    //remplace with winning screen // set next stage
+                    if(playerShip.lives == 0){
+                        game.setScreen(new GameOverScreen(game, score));
+                    }
+
 
 
 

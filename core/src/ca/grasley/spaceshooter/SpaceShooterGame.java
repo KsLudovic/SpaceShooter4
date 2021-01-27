@@ -2,12 +2,18 @@ package ca.grasley.spaceshooter;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 
+import java.awt.Menu;
 import java.util.Random;
 
 
 
 public class SpaceShooterGame extends Game {
+	public static final float WIDTH = 72;
+	public static final float HEIGHT = 128;
+	public Batch batch;
 
 	// multiples windows
 
@@ -21,6 +27,7 @@ public class SpaceShooterGame extends Game {
 	private MenuScreen menuScreen;
 	private ScoreScreen scoreScreen;
 	private EndScreen endScreen;
+	private GameOverScreen gameOverScreen;
 
 	public final static int MENU = 0;
 	public final static int APPLICATION = 1;
@@ -32,7 +39,6 @@ public class SpaceShooterGame extends Game {
 
 
 
-
 	public SpaceShooterGame(){
 
 		game = this;
@@ -40,11 +46,10 @@ public class SpaceShooterGame extends Game {
 	@Override
 	public void create() {
 
-
 		menuScreen = new MenuScreen(this);
 		setScreen(menuScreen);
-		 /*gameScreen = new GameScreen(this);
-		  setScreen(gameScreen); */
+	/*	 gameOverScreen = new GameOverScreen(this,0);
+		  setScreen(gameOverScreen); */
 
 
 	}
@@ -98,6 +103,7 @@ public class SpaceShooterGame extends Game {
 	public AppPreferences getPreferences(){
 		return this.preferences;
 	}
+
 
 	}
 
