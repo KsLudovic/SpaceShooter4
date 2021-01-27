@@ -5,12 +5,22 @@ GAME IS PORTABLE TO WINDOWS MAC AND ANDROID
 THE GAME IS MOUSE,KEYS AND SCREEN REACTING
 
 
-// screens soon
+FIXED BUG DOUBLE COLLISION CRASH
+ADD NEW DEPENDENCIES FOR ANDROID.GRAPHICS
 
-// make preferences screen work better
+ADD GAMEOVERSCREEN, SCORE AND HIGHSCORE
 
-// make new stages
+// NEED TO ADD A LEADER BOARD
 
-// doing some testing
+// NEED TO ADD A "Getprofile"
 
-// adding powers and comet
+// stock profiles and best score to lead board
+
+// need to modify preferencescreen (fix some bugs)
+
+// need to clean stuff and organise it better for futures updates
+
+// add some stages
+
+// add a loading screen for transition purpose
+
