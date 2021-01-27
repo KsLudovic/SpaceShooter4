@@ -1,4 +1,4 @@
-package ca.grasley.spaceshooter;
+package ca.shaxomann.spaceshooter;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

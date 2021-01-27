@@ -1,19 +1,12 @@
-package ca.grasley.spaceshooter;
+package ca.shaxomann.spaceshooter;
 
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
@@ -25,7 +18,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class PreferenceScreen implements Screen {
 
     private Game game;
-    private SpaceShooterGame spaceShooterGame;
+    private ca.shaxomann.spaceshooter.SpaceShooterGame spaceShooterGame;
     private Stage stage;
 
     @Override
@@ -38,7 +31,7 @@ public class PreferenceScreen implements Screen {
 
 // VOLUME SLIDER
         final Slider volumeMusicSlider = new Slider( 0f, 1f, 0.1f,false, skin );
-        final SpaceShooterGame parent = new SpaceShooterGame();
+        final ca.shaxomann.spaceshooter.SpaceShooterGame parent = new SpaceShooterGame();
    /*    volumeMusicSlider.setValue( parent.getPreferences().getMusicVolume() );
         volumeMusicSlider.addListener( new EventListener() {
             @Override

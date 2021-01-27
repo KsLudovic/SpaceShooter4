@@ -1,13 +1,9 @@
-package ca.grasley.spaceshooter;
+package ca.shaxomann.spaceshooter;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-import java.awt.Menu;
 import java.util.Random;
-
 
 
 public class SpaceShooterGame extends Game {
@@ -20,12 +16,12 @@ public class SpaceShooterGame extends Game {
 	private Game game;
 	private AppPreferences preferences;
 
-	private GameScreen gameScreen;
+	private ca.shaxomann.spaceshooter.GameScreen gameScreen;
 	private LoadingScreen loadingScreen;
 	SpaceShooterGame spaceShooterGame;
 	private PreferenceScreen preferencesScreen;
 	private MenuScreen menuScreen;
-	private ScoreScreen scoreScreen;
+	private ca.shaxomann.spaceshooter.ScoreScreen scoreScreen;
 	private EndScreen endScreen;
 	private GameOverScreen gameOverScreen;
 
@@ -80,7 +76,7 @@ public class SpaceShooterGame extends Game {
 				break;
 
 			case APPLICATION:
-				if(gameScreen == null) gameScreen = new GameScreen(game);
+				if(gameScreen == null) gameScreen = new ca.shaxomann.spaceshooter.GameScreen(game);
 				this.setScreen(gameScreen);
 				break;
 

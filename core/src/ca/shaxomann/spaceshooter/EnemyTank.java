@@ -1,17 +1,16 @@
-package ca.grasley.spaceshooter;
+package ca.shaxomann.spaceshooter;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 
-class RapidFireBoss extends Ship {
+class EnemyTank extends ca.shaxomann.spaceshooter.Ship {
 
     Vector2 directionVector;
     float timeSinceLastDirectionChange = 0;
-    float directionFrequency = 3f;
+    float directionFrequency = 1f;
 
-    public RapidFireBoss(float xCentre, float yCentre,
+    public EnemyTank(float xCentre, float yCentre,
                      float width, float height,
                      float movementSpeed, int shield,
                      float laserWidth, float laserHeight,
@@ -51,19 +50,18 @@ class RapidFireBoss extends Ship {
     }
 
     @Override
-    public Laser[] fireLasers() {
-        Laser[] laser = new Laser[1];
-        laser[0] = new Laser(boundingBox.x + boundingBox.width * 0.5f, boundingBox.y - laserHeight,
+    public ca.shaxomann.spaceshooter.Laser[] fireLasers() {
+        ca.shaxomann.spaceshooter.Laser[] laser = new ca.shaxomann.spaceshooter.Laser[2];
+        laser[0] = new ca.shaxomann.spaceshooter.Laser(boundingBox.x + boundingBox.width * 0.18f, boundingBox.y - laserHeight,
                 laserWidth, laserHeight,
                 laserMovementSpeed, laserTextureRegion);
-
+        laser[1] = new ca.shaxomann.spaceshooter.Laser(boundingBox.x + boundingBox.width * 0.82f, boundingBox.y - laserHeight,
+                laserWidth, laserHeight,
+                laserMovementSpeed, laserTextureRegion);
 
         timeSinceLastShot = 0;
 
         return laser;
-    }
-    public void bossTranslation(float xChange, float yChange) {
-        boundingBox.setPosition(boundingBox.x + xChange, boundingBox.y);
     }
 
     @Override

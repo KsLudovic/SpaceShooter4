@@ -1,8 +1,9 @@
-package ca.grasley.spaceshooter;
+package ca.shaxomann.spaceshooter;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+
 
 abstract class Ship {
 
@@ -10,6 +11,7 @@ abstract class Ship {
     float movementSpeed;  //world units per second
     int shield;
     int lives;
+
 
     //position & dimension
     Rectangle boundingBox;
@@ -52,13 +54,13 @@ abstract class Ship {
         return (timeSinceLastShot - timeBetweenShots >= 0);
     }
 
-    public abstract Laser[] fireLasers();
+    public abstract ca.shaxomann.spaceshooter.Laser[] fireLasers();
 
     public boolean intersects(Rectangle otherRectangle) {
         return boundingBox.overlaps(otherRectangle);
     }
 
-    public boolean hitAndCheckIfDead(Laser laser) {
+    public boolean hitAndCheckIfDead(ca.shaxomann.spaceshooter.Laser laser) {
         if (shield > 0) {
             shield--;
             return false;
@@ -66,14 +68,7 @@ abstract class Ship {
         lives--;
         return true;
     }
-    public boolean hitByTankAndCheckIfDead(Laser laser) {
-        if (shield > 3) {
-            shield-=3;
-            return false;
-        }
-        lives--;
-        return true;
-    }
+
 
     public void translate(float xChange, float yChange) {
         boundingBox.setPosition(boundingBox.x + xChange, boundingBox.y + yChange);
@@ -85,4 +80,6 @@ abstract class Ship {
             batch.draw(shieldTextureRegion, boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
         }
     }
+
+
 }

@@ -1,4 +1,4 @@
-package ca.grasley.spaceshooter;
+package ca.shaxomann.spaceshooter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;

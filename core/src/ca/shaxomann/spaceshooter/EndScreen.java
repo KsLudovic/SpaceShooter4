@@ -1,9 +1,9 @@
-package ca.grasley.spaceshooter;
+package ca.shaxomann.spaceshooter;
 
 import com.badlogic.gdx.Screen;
 
 public class EndScreen implements Screen {
-    private SpaceShooterGame parent;
+    private ca.shaxomann.spaceshooter.SpaceShooterGame parent;
     @Override
     public void show() {
 

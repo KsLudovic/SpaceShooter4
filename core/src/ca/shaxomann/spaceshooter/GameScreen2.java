@@ -1,4 +1,4 @@
-package ca.grasley.spaceshooter;
+package ca.shaxomann.spaceshooter;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -17,7 +17,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -27,20 +26,9 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Locale;
 
-import javax.xml.soap.Text;
+class GameScreen2 implements Screen {
 
-class GameScreen implements Screen {
-
-
-
-    ///
-    private Game game;
-    private int score= 0;
-
-    SpaceShooterGame spaceShooterGame;
-
-    // next stage
-    private GameScreen2 gameScreen2;
+    Game game;
 
     //screen
     private final Camera camera;
@@ -75,7 +63,7 @@ class GameScreen implements Screen {
 
     Sound laserSoundPlayer = Gdx.audio.newSound(Gdx.files.internal("laserRetro_000.ogg"));
     Sound explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosionCrunch_000.ogg"));
-   // Sound explosionPlayer = Gdx.audio.newSound(Gdx.files.internal("explosionCrunch_001.ogg"));
+    // Sound explosionPlayer = Gdx.audio.newSound(Gdx.files.internal("explosionCrunch_001.ogg"));
 
 
     //timing
@@ -89,36 +77,30 @@ class GameScreen implements Screen {
     private final float WORLD_HEIGHT = 128;
 
     //game objects
-    private final PlayerShip playerShip;
-    private  RapidFireBoss rapidFireBoss;
-    private final LinkedList<EnemyShip> enemyShipList;
-    private final LinkedList<EnemyTank> enemyTankShipList;
-    private  LinkedList<RapidFireBoss> rapidFireBossLinkedList;
-    private final LinkedList<Laser> playerLaserList;
-    private final LinkedList<Laser> enemyLaserList;
-    private final LinkedList<Laser> tankLaserList;
-    private  final LinkedList<Laser> rapidFireLaserList;
-    private final LinkedList<Explosion> explosionList;
+    private final ca.shaxomann.spaceshooter.PlayerShip playerShip;
+    private ca.shaxomann.spaceshooter.RapidFireBoss rapidFireBoss;
+    private final LinkedList<ca.shaxomann.spaceshooter.EnemyShip> enemyShipList;
+    private final LinkedList<ca.shaxomann.spaceshooter.EnemyTank> enemyTankShipList;
+    private  LinkedList<ca.shaxomann.spaceshooter.RapidFireBoss> rapidFireBossLinkedList;
+    private final LinkedList<ca.shaxomann.spaceshooter.Laser> playerLaserList;
+    private final LinkedList<ca.shaxomann.spaceshooter.Laser> enemyLaserList;
+    private final LinkedList<ca.shaxomann.spaceshooter.Laser> tankLaserList;
+    private  final LinkedList<ca.shaxomann.spaceshooter.Laser> rapidFireLaserList;
+    private final LinkedList<ca.shaxomann.spaceshooter.Explosion> explosionList;
 
     // SHIPS DETAILS
+    private int score = 0;
     private final float xCenter = WORLD_WIDTH / 2;
     private final float yCenter = WORLD_HEIGHT / 4;
 
-
-
     // invulnerability related
-
-    
-    // SCORE METHOD
-    
 
 
 
     // DISPLAY THINGGIES
     BitmapFont font;
     float hudVerticalMargin, hudLeftX, hudRightX, hudCentreX,hudCentreY, hudRow1Y, hudRow2Y, hudSectionWidth;
-    GameScreen(Game game){
-
+    GameScreen2(Game game){
         this.game = game;
 
         // SCREEN
@@ -161,16 +143,16 @@ class GameScreen implements Screen {
         //set up game objects
 
         // player
-        playerShip = new PlayerShip(xCenter, yCenter,
+        playerShip = new ca.shaxomann.spaceshooter.PlayerShip(xCenter, yCenter,
                 6, 6,
                 40, 5,
-                1f, 8, 100, 0.3f,
+                1f, 7, 100, 0.3f,
                 playerShipTextureRegion, playerShieldTextureRegion, playerLaserTextureRegion);
 
         // boss
-        rapidFireBoss = new RapidFireBoss(WORLD_WIDTH/2,WORLD_HEIGHT+1,
+        rapidFireBoss = new ca.shaxomann.spaceshooter.RapidFireBoss(WORLD_WIDTH/2,WORLD_HEIGHT+1,
                 60,30,
-                2, 200, 6,5, 50,2f,
+                2, 20, 6,5, 50,2f,
                 rapidFireBossTextureRegion,enemyShieldTextureRegion,rapidFireBossLaserTextureRegion);
 
 
@@ -244,7 +226,7 @@ class GameScreen implements Screen {
         spawnEnemyTank(deltaTime);
 
 
-        for (EnemyShip enemyShip : enemyShipList) {
+        for (ca.shaxomann.spaceshooter.EnemyShip enemyShip : enemyShipList) {
             moveEnemy(enemyShip, deltaTime);
 
             enemyShip.update(deltaTime);
@@ -254,7 +236,7 @@ class GameScreen implements Screen {
 
 
         }
-        for (EnemyTank enemyTank : enemyTankShipList) {
+        for (ca.shaxomann.spaceshooter.EnemyTank enemyTank : enemyTankShipList) {
             moveEnemyTank(enemyTank, deltaTime);
 
             enemyTank.update(deltaTime);
@@ -303,7 +285,7 @@ class GameScreen implements Screen {
         font.draw(batch, "Score", hudLeftX, hudRow1Y,hudSectionWidth, Align.left,false);
         font.draw(batch,"Shield", hudCentreX, hudRow1Y,hudSectionWidth,Align.center,false);
         font.draw(batch, "Lives", hudRightX,hudRow1Y,hudSectionWidth,Align.right,false);
-        font.draw(batch,"STAGE 1",hudCentreX,hudCentreY,hudSectionWidth,Align.center,false);
+        font.draw(batch,"STAGE 2",hudCentreX,hudCentreY,hudSectionWidth,Align.center,false);
 
 
         font.draw(batch,String.format(Locale.getDefault(), "%06d",score),hudLeftX, hudRow2Y,
@@ -325,15 +307,15 @@ class GameScreen implements Screen {
         float timeBetweenEnemySpawns = 1.5f;
         if(enemySpawnTimer> timeBetweenEnemySpawns && enemyShipList.size()< 5){
 
-        enemyShipList.add(new EnemyShip(SpaceShooterGame.random.nextFloat()*(WORLD_WIDTH-10)+5,
-        WORLD_HEIGHT*8/10,
-            6, 6,
-            15, 1,
-            2f, 2, 40, 1f,
-        enemyShipTextureRegion, enemyShieldTextureRegion, enemyLaserTextureRegion));
-        enemySpawnTimer-= timeBetweenEnemySpawns;
+            enemyShipList.add(new ca.shaxomann.spaceshooter.EnemyShip(ca.shaxomann.spaceshooter.SpaceShooterGame.random.nextFloat()*(WORLD_WIDTH-10)+5,
+                    WORLD_HEIGHT*9/10,
+                    6, 6,
+                    15, 1,
+                    2f, 2, 40, 1f,
+                    enemyShipTextureRegion, enemyShieldTextureRegion, enemyLaserTextureRegion));
+            enemySpawnTimer-= timeBetweenEnemySpawns;
 
-         }
+        }
     }
     private void spawnEnemyTank(float deltaTime){
         enemyTankTimer+= deltaTime;
@@ -341,8 +323,8 @@ class GameScreen implements Screen {
         float timeBetweenTankSpawns = 20f;
         if(enemyTankTimer> timeBetweenTankSpawns && enemyTankShipList.size()<3){
 
-            enemyTankShipList.add(new EnemyTank(SpaceShooterGame.random.nextFloat()*(WORLD_WIDTH-10)+5,
-                    WORLD_HEIGHT*8/10,10,10,
+            enemyTankShipList.add(new ca.shaxomann.spaceshooter.EnemyTank(SpaceShooterGame.random.nextFloat()*(WORLD_WIDTH-10)+5,
+                    WORLD_HEIGHT*9/10,10,10,
                     7,5,4f,4,20,2.5f,
                     enemyTankTextureRegion,enemyShieldTextureRegion,enemyLaserTextureRegion));
             enemyTankTimer -= timeBetweenTankSpawns;
@@ -393,7 +375,7 @@ class GameScreen implements Screen {
             // calculate x y
             Vector2 playerShipCenter = new Vector2(
                     playerShip.boundingBox.x+playerShip.boundingBox.width/2,
-                      playerShip.boundingBox.y+ playerShip.boundingBox.height/2);
+                    playerShip.boundingBox.y+ playerShip.boundingBox.height/2);
 
             float touchDistance = touchPoint.dst(playerShipCenter);
 
@@ -403,17 +385,17 @@ class GameScreen implements Screen {
                 float yTouchdiff = touchPoint.y - playerShipCenter.y;
 
 
-            //scale to the max speed
-            float xMove = xTouchdiff / touchDistance * playerShip.movementSpeed*deltaTime;
-            float yMove = yTouchdiff / touchDistance * playerShip.movementSpeed*deltaTime;
+                //scale to the max speed
+                float xMove = xTouchdiff / touchDistance * playerShip.movementSpeed*deltaTime;
+                float yMove = yTouchdiff / touchDistance * playerShip.movementSpeed*deltaTime;
 
-            if(xMove>0) xMove = Math.min(xMove,rightLimit);
-            else xMove = Math.max(xMove,leftLimit);
+                if(xMove>0) xMove = Math.min(xMove,rightLimit);
+                else xMove = Math.max(xMove,leftLimit);
 
-            if(yMove>0) yMove = Math.min(yMove,upLimit);
-            else yMove = Math.max(yMove,downLimit);
+                if(yMove>0) yMove = Math.min(yMove,upLimit);
+                else yMove = Math.max(yMove,downLimit);
 
-            playerShip.translate(xMove,yMove);
+                playerShip.translate(xMove,yMove);
 
             }
 
@@ -426,12 +408,12 @@ class GameScreen implements Screen {
 
     // RANDOM ENEMIES MOVEMENT
 
-    public void moveEnemy(EnemyShip enemyShip, float deltaTime){
+    public void moveEnemy(ca.shaxomann.spaceshooter.EnemyShip enemyShip, float deltaTime){
         float leftLimit,rightLimit,upLimit,downLimit;
         leftLimit= -enemyShip.boundingBox.x;
         downLimit= (float)WORLD_HEIGHT/2 -enemyShip.boundingBox.y;
         rightLimit= WORLD_WIDTH - enemyShip.boundingBox.x - enemyShip.boundingBox.width;
-        upLimit = WORLD_HEIGHT*8/10 - enemyShip.boundingBox.y - enemyShip.boundingBox.height;
+        upLimit = WORLD_HEIGHT*9/10 - enemyShip.boundingBox.y - enemyShip.boundingBox.height;
         float xMove = enemyShip.getDirectionVector().x * enemyShip.movementSpeed*deltaTime;
         float yMove = enemyShip.getDirectionVector().y * enemyShip.movementSpeed*deltaTime;
 
@@ -443,12 +425,12 @@ class GameScreen implements Screen {
 
         enemyShip.translate(xMove,yMove);
     }
-    public void moveEnemyTank(EnemyTank enemyTank, float deltaTime){
+    public void moveEnemyTank(ca.shaxomann.spaceshooter.EnemyTank enemyTank, float deltaTime){
         float leftLimit,rightLimit,upLimit,downLimit;
         leftLimit= -enemyTank.boundingBox.x;
         downLimit= (float)WORLD_HEIGHT/3 -enemyTank.boundingBox.y;
         rightLimit= WORLD_WIDTH - enemyTank.boundingBox.x - enemyTank.boundingBox.width;
-        upLimit = WORLD_HEIGHT*8/10 - enemyTank.boundingBox.y - enemyTank.boundingBox.height;
+        upLimit = WORLD_HEIGHT*9/10 - enemyTank.boundingBox.y - enemyTank.boundingBox.height;
         float xMove = enemyTank.getDirectionVector().x * enemyTank.movementSpeed*deltaTime;
         float yMove = enemyTank.getDirectionVector().y * enemyTank.movementSpeed*deltaTime;
 
@@ -460,7 +442,7 @@ class GameScreen implements Screen {
 
         enemyTank.translate(xMove,yMove);
     }
-    public void moveRapidFireBoss(RapidFireBoss rapidFireBoss, float deltaTime){
+    public void moveRapidFireBoss(ca.shaxomann.spaceshooter.RapidFireBoss rapidFireBoss, float deltaTime){
         float leftLimit,rightLimit;
         leftLimit= -rapidFireBoss.boundingBox.x;
         rightLimit= WORLD_WIDTH - rapidFireBoss.boundingBox.x - rapidFireBoss.boundingBox.width;
@@ -474,13 +456,13 @@ class GameScreen implements Screen {
 
     private void detectCollisions() {
         //for each player laser, check whether it intersects an enemy ship
-        ListIterator<Laser> laserListIterator = playerLaserList.listIterator();
+        ListIterator<ca.shaxomann.spaceshooter.Laser> laserListIterator = playerLaserList.listIterator();
         while (laserListIterator.hasNext()) {
-            Laser laser = laserListIterator.next();
-            ListIterator<EnemyShip> enemyShipListIterator = enemyShipList.listIterator();
-            ListIterator<EnemyTank> enemyTankListIterator = enemyTankShipList.listIterator();
+            ca.shaxomann.spaceshooter.Laser laser = laserListIterator.next();
+            ListIterator<ca.shaxomann.spaceshooter.EnemyShip> enemyShipListIterator = enemyShipList.listIterator();
+            ListIterator<ca.shaxomann.spaceshooter.EnemyTank> enemyTankListIterator = enemyTankShipList.listIterator();
             while(enemyShipListIterator.hasNext()) {
-                EnemyShip enemyShip = enemyShipListIterator.next();
+                ca.shaxomann.spaceshooter.EnemyShip enemyShip = enemyShipListIterator.next();
                 if (enemyShip.intersects(laser.boundingBox)) {
                     score+=5;
                     //contact with enemy ship
@@ -488,7 +470,7 @@ class GameScreen implements Screen {
                         score+=50;
                         explosionSound.play(0.5f);
                         enemyShipListIterator.remove();
-                        explosionList.add(new Explosion(explosionTexture,new Rectangle(enemyShip.boundingBox),0.7f));
+                        explosionList.add(new ca.shaxomann.spaceshooter.Explosion(explosionTexture,new Rectangle(enemyShip.boundingBox),0.7f));
 
                     }
                     laserListIterator.remove();
@@ -496,7 +478,7 @@ class GameScreen implements Screen {
                 }
             }
             while(enemyTankListIterator.hasNext()) {
-                EnemyTank enemyTank = enemyTankListIterator.next();
+                ca.shaxomann.spaceshooter.EnemyTank enemyTank = enemyTankListIterator.next();
                 if (enemyTank.intersects(laser.boundingBox)) {
 
                     score+=5;
@@ -505,7 +487,7 @@ class GameScreen implements Screen {
                         score+=500;
                         explosionSound.play(0.8f);
                         enemyTankListIterator.remove();
-                        explosionList.add(new Explosion(explosionTexture,new Rectangle(enemyTank.boundingBox),0.7f));
+                        explosionList.add(new ca.shaxomann.spaceshooter.Explosion(explosionTexture,new Rectangle(enemyTank.boundingBox),0.7f));
 
                     }
                     laserListIterator.remove();
@@ -518,12 +500,11 @@ class GameScreen implements Screen {
                 if(rapidFireBoss.hitAndCheckIfDead(laser)){
                     score +=15000;
                     explosionSound.play(2f);
-                    explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
-                    explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
-                    explosionList.add(new Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
+                    explosionList.add(new ca.shaxomann.spaceshooter.Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
+                    explosionList.add(new ca.shaxomann.spaceshooter.Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
+                    explosionList.add(new ca.shaxomann.spaceshooter.Explosion(explosionTexture,new Rectangle(rapidFireBoss.boundingBox),1f));
                     game.setScreen(new GameScreen2(game));
-
-                   /// remplace with winning screen
+                    /// remplace with winning screen
 
 
 
@@ -537,19 +518,17 @@ class GameScreen implements Screen {
         //for each enemy laser, check whether it intersects the player ship
         laserListIterator = enemyLaserList.listIterator();
         while (laserListIterator.hasNext()) {
-            Laser laser = laserListIterator.next();
+            ca.shaxomann.spaceshooter.Laser laser = laserListIterator.next();
             if (playerShip.intersects(laser.boundingBox)) {
                 //contact with player ship
                 if(playerShip.hitAndCheckIfDead(laser)){
-                    explosionList.add(new Explosion(explosionTexture,new Rectangle(playerShip.boundingBox),1.6f));
+                    explosionList.add(new ca.shaxomann.spaceshooter.Explosion(explosionTexture,new Rectangle(playerShip.boundingBox),1.6f));
                     playerShip.lives--;
                     explosionSound.play(2f,0.3f,0f);
                     playerShip.shield = 5;
                     playerShip.boundingBox.setPosition(xCenter,yCenter);
-                    if(playerShip.lives == 0){
-                        game.setScreen(new GameOverScreen(game, score));
-                    }
-
+                    if(playerShip.lives == 0) Gdx.app.exit();
+                    //remplace with winning screen // set next stage
 
 
 
@@ -566,7 +545,7 @@ class GameScreen implements Screen {
 
 
     private void updateAndRenderExplosions(float deltaTime) {
-        ListIterator<Explosion> explosionListIterator = explosionList.listIterator();
+        ListIterator<ca.shaxomann.spaceshooter.Explosion> explosionListIterator = explosionList.listIterator();
         while(explosionListIterator.hasNext()){
             Explosion explosion = explosionListIterator.next();
             explosion.update(deltaTime);
@@ -586,31 +565,31 @@ class GameScreen implements Screen {
         //create new lasers
         //player lasers
         if (playerShip.canFireLaser()) {
-            Laser[] lasers = playerShip.fireLasers();
+            ca.shaxomann.spaceshooter.Laser[] lasers = playerShip.fireLasers();
             playerLaserList.addAll(Arrays.asList(lasers));
             laserSoundPlayer.play(0.05f);
 
         }
         //enemy lasers
-        for (EnemyShip enemyShip : enemyShipList) {
+        for (ca.shaxomann.spaceshooter.EnemyShip enemyShip : enemyShipList) {
             if (enemyShip.canFireLaser()) {
-                Laser[] lasers = enemyShip.fireLasers();
+                ca.shaxomann.spaceshooter.Laser[] lasers = enemyShip.fireLasers();
                 enemyLaserList.addAll(Arrays.asList(lasers));
             }
         }
 
         // tank lasers
-        for (EnemyTank enemyTank : enemyTankShipList) {
+        for (ca.shaxomann.spaceshooter.EnemyTank enemyTank : enemyTankShipList) {
             if (enemyTank.canFireLaser()) {
-                Laser[] lasers = enemyTank.fireLasers();
+                ca.shaxomann.spaceshooter.Laser[] lasers = enemyTank.fireLasers();
                 enemyLaserList.addAll(Arrays.asList(lasers));
             }
         }
         // boss
-            if (rapidFireBoss.canFireLaser()) {
-                Laser[] lasers = rapidFireBoss.fireLasers();
-                enemyLaserList.addAll(Arrays.asList(lasers));
-            }
+        if (rapidFireBoss.canFireLaser()) {
+            ca.shaxomann.spaceshooter.Laser[] lasers = rapidFireBoss.fireLasers();
+            enemyLaserList.addAll(Arrays.asList(lasers));
+        }
 
 
 
@@ -619,9 +598,9 @@ class GameScreen implements Screen {
 
         //draw lasers
         //remove old lasers
-        ListIterator<Laser> iterator = playerLaserList.listIterator();
+        ListIterator<ca.shaxomann.spaceshooter.Laser> iterator = playerLaserList.listIterator();
         while (iterator.hasNext()) {
-            Laser laser = iterator.next();
+            ca.shaxomann.spaceshooter.Laser laser = iterator.next();
             laser.draw(batch);
             laser.boundingBox.y += laser.movementSpeed * deltaTime;
             if (laser.boundingBox.y > WORLD_HEIGHT) {
@@ -630,7 +609,7 @@ class GameScreen implements Screen {
         }
         iterator = enemyLaserList.listIterator();
         while (iterator.hasNext()) {
-            Laser laser = iterator.next();
+            ca.shaxomann.spaceshooter.Laser laser = iterator.next();
             laser.draw(batch);
             laser.boundingBox.y -= laser.movementSpeed * deltaTime;
             if (laser.boundingBox.y + laser.boundingBox.height < 0) {
@@ -639,7 +618,7 @@ class GameScreen implements Screen {
         }
         iterator = tankLaserList.listIterator();
         while (iterator.hasNext()) {
-            Laser laser = iterator.next();
+            ca.shaxomann.spaceshooter.Laser laser = iterator.next();
             laser.draw(batch);
             laser.boundingBox.y -= laser.movementSpeed * deltaTime;
             if (laser.boundingBox.y + laser.boundingBox.height < 0) {
@@ -648,7 +627,7 @@ class GameScreen implements Screen {
         }
         iterator = rapidFireLaserList.listIterator();
         while (iterator.hasNext()) {
-            Laser laser = iterator.next();
+            ca.shaxomann.spaceshooter.Laser laser = iterator.next();
             laser.draw(batch);
             laser.boundingBox.y -= laser.movementSpeed * deltaTime;
             if (laser.boundingBox.y + laser.boundingBox.height < 0) {

@@ -1,16 +1,16 @@
-package ca.grasley.spaceshooter;
+package ca.shaxomann.spaceshooter;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-class EnemyShip extends Ship {
+class RapidFireBoss extends Ship {
 
     Vector2 directionVector;
     float timeSinceLastDirectionChange = 0;
-    float directionFrequency = 1f;
+    float directionFrequency = 3f;
 
-    public EnemyShip(float xCentre, float yCentre,
+    public RapidFireBoss(float xCentre, float yCentre,
                      float width, float height,
                      float movementSpeed, int shield,
                      float laserWidth, float laserHeight,
@@ -51,22 +51,24 @@ class EnemyShip extends Ship {
 
     @Override
     public Laser[] fireLasers() {
-        Laser[] laser = new Laser[2];
-        laser[0] = new Laser(boundingBox.x + boundingBox.width * 0.18f, boundingBox.y - laserHeight,
+        Laser[] laser = new Laser[1];
+        laser[0] = new Laser(boundingBox.x + boundingBox.width * 0.5f, boundingBox.y - laserHeight,
                 laserWidth, laserHeight,
                 laserMovementSpeed, laserTextureRegion);
-        laser[1] = new Laser(boundingBox.x + boundingBox.width * 0.82f, boundingBox.y - laserHeight,
-                laserWidth, laserHeight,
-                laserMovementSpeed, laserTextureRegion);
+
 
         timeSinceLastShot = 0;
 
         return laser;
     }
+    public void bossTranslation(float xChange, float yChange) {
+        boundingBox.setPosition(boundingBox.x + xChange, boundingBox.y);
+    }
 
     @Override
     public void draw(Batch batch) {
         batch.draw(shipTextureRegion, boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
+
         if (shield > 0) {
             batch.draw(shieldTextureRegion, boundingBox.x, boundingBox.y - boundingBox.height * 0.2f, boundingBox.width, boundingBox.height);
         }
