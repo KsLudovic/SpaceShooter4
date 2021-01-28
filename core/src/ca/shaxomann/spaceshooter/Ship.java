@@ -54,13 +54,13 @@ abstract class Ship {
         return (timeSinceLastShot - timeBetweenShots >= 0);
     }
 
-    public abstract ca.shaxomann.spaceshooter.Laser[] fireLasers();
+    public abstract Laser[] fireLasers();
 
     public boolean intersects(Rectangle otherRectangle) {
         return boundingBox.overlaps(otherRectangle);
     }
 
-    public boolean hitAndCheckIfDead(ca.shaxomann.spaceshooter.Laser laser) {
+    public boolean hitAndCheckIfDead(Laser laser) {
         if (shield > 0) {
             shield--;
             return false;

@@ -2,7 +2,7 @@ package ca.shaxomann.spaceshooter;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-class PlayerShip extends ca.shaxomann.spaceshooter.Ship {
+class PlayerShip extends Ship {
 
     int lives =3;
     public PlayerShip(float xCentre, float yCentre,

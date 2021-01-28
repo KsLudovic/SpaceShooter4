@@ -102,6 +102,7 @@ public class GameOverScreen implements Screen {
     public void dispose() {
         // TODO Auto-generated method stub
         stage.dispose();
+        batch.dispose();
 
     }
     public GameOverScreen (Game game, int score) {
@@ -128,5 +129,6 @@ public class GameOverScreen implements Screen {
         scoreFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
 
     }
+
 
 }

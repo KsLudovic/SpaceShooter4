@@ -50,12 +50,12 @@ class EnemyShip extends ca.shaxomann.spaceshooter.Ship {
     }
 
     @Override
-    public ca.shaxomann.spaceshooter.Laser[] fireLasers() {
-        ca.shaxomann.spaceshooter.Laser[] laser = new ca.shaxomann.spaceshooter.Laser[2];
-        laser[0] = new ca.shaxomann.spaceshooter.Laser(boundingBox.x + boundingBox.width * 0.18f, boundingBox.y - laserHeight,
+    public Laser[] fireLasers() {
+        Laser[] laser = new ca.shaxomann.spaceshooter.Laser[2];
+        laser[0] = new Laser(boundingBox.x + boundingBox.width * 0.18f, boundingBox.y - laserHeight,
                 laserWidth, laserHeight,
                 laserMovementSpeed, laserTextureRegion);
-        laser[1] = new ca.shaxomann.spaceshooter.Laser(boundingBox.x + boundingBox.width * 0.82f, boundingBox.y - laserHeight,
+        laser[1] = new Laser(boundingBox.x + boundingBox.width * 0.82f, boundingBox.y - laserHeight,
                 laserWidth, laserHeight,
                 laserMovementSpeed, laserTextureRegion);
 
