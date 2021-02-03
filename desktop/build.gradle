@@ -4,12 +4,12 @@ sourceCompatibility = 1.7
 sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = ["../android/assets"]
 
-project.ext.mainClassName = "ca.grasley.spaceshooter.desktop.DesktopLauncher"
+project.ext.mainClassName = "ca.shaxomann.spaceshooter.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets")
 
 jar {
     manifest {
-        attributes "Main-Class": "ca.shaxomann.spaceshooter.desktop;"
+        attributes "Main-Class": "ca.shaxomann.spaceshooter.desktop"
     }
 
     from {
@@ -36,7 +36,7 @@ task debug(dependsOn: classes, type: JavaExec) {
 
 task dist(type: Jar) {
     manifest {
-        attributes 'Main-Class': project.mainClassName
+        attributes ('Main-Class': project.mainClassName, "SplashScreen-Image" : "splash.png")
     }
     dependsOn configurations.runtimeClasspath
     from {
