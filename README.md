@@ -1,31 +1,14 @@
 # SpaceShooter4
 
-SPACE SHOOTER GAME TYPE WITH SCROLLING BACKGROUND AND MULTIPLES ENNEMIES USING LIBGDX ON ANDROID STUDIO
-GAME IS PORTABLE TO WINDOWS MAC AND ANDROID
-THE GAME IS MOUSE,KEYS AND SCREEN REACTING
+game is done using only java and libgdx.
 
+Add a splash screen
 
-FIXED BUG DOUBLE COLLISION CRASH
-ADDED NEW DEPENDENCIES FOR ANDROID.GRAPHICS
-ADDED BOSS HEALTHBAR, NEED TO ADD INTERACTIONS AND EFFECTS
-ADDED GAMEOVERSCREEN, SCORE AND HIGHSCORE
-ADDED BETTER RENDING TEXTURE FOR EXPLOSION
-ADDED SPARKLING EFFECT RENDERING
-ADDED PERSONAL SOUND EFFECT
-BALANCING STUFF
-MUSIC CHANGES 
+add dependencies to make it executable on android, mac and windows
 
-// NEED TO ADD A LEADER BOARD
+starting missiles 
 
-// NEED TO ADD A "Getprofile"
+adding new imputs
 
-// stock profiles and best score to lead board
-
-// need to modify preferencescreen (fix some bugs)
-
-// need to clean stuff and organize it better for futures updates
-
-// add some stages
-
-// add a loading screen for transition purpose
+added highscore system that save highest score even after closing the app
 
