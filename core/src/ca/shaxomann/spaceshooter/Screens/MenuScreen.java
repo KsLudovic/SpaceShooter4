@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -24,7 +26,8 @@ public class MenuScreen implements Screen {
     private Game game;
     private SpaceShooterGame parent;
     private Stage stage;
-    private  TextureRegion background;
+
+    SpriteBatch batch;
 
     // background atlas
 
@@ -41,6 +44,7 @@ public class MenuScreen implements Screen {
         table.setDebug(true);
         stage.addActor(table);
         Skin skin = new Skin(Gdx.files.internal("tracer/skin/tracer-ui.json"));
+
         TextButton newGame = new TextButton("New Game", skin );
         TextButton score = new TextButton("Lead Score", skin);
         TextButton preferences = new TextButton("Preferences",skin);
@@ -90,6 +94,8 @@ public class MenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
+
+
 
 
     }

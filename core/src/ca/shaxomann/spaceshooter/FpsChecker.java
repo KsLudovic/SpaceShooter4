@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.TimeUtils;
  * A nicer class for showing framerate that doesn't spam the console
  * like Logger.log()
  *
- * @author William Hartman
  */
 public class FpsChecker implements Disposable{
     long lastTimeCounted;

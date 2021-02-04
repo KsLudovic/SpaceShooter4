@@ -13,20 +13,21 @@ public class Rocket {
     public Rectangle boundingBox;
 
     //laser physical characteristics
-    public float movementSpeed = 10; //world units per second
+    public float movementSpeed; //world units per second
     private TextureAtlas textureAtlas1;
 
     //graphics
     TextureRegion textureRegion;
 
+
     // SOUND
     Sound rocketSound = Gdx.audio.newSound(Gdx.files.internal("laserRetro_000.ogg"));
 
     public Rocket(float xCentre, float yBottom, float width, float height, float movementSpeed,
-                 TextureRegion rocketTextureRegion) {
+                 TextureRegion textureRegion) {
         this.boundingBox = new Rectangle(xCentre - width / 2, yBottom, width, height);
         this.movementSpeed = movementSpeed;
-        this.textureRegion = rocketTextureRegion;
+        this.textureRegion = textureRegion;
     }
 
     public void draw(Batch batch) {

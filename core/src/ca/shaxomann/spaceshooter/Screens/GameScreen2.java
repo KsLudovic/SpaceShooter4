@@ -35,6 +35,10 @@ import ca.shaxomann.spaceshooter.SpaceShooterGame;
 import ca.shaxomann.spaceshooter.SpriteAndEffects.Laser;
 import ca.shaxomann.spaceshooter.SpriteAndEffects.Rocket;
 
+
+
+// just a copy to gamescreen, will be second stage
+
 class GameScreen2 implements Screen {
 
     Game game;
@@ -158,7 +162,7 @@ class GameScreen2 implements Screen {
                 6, 6,
                 40, 5,
                 1f, 7, 100, 0.3f,
-                playerShipTextureRegion, playerShieldTextureRegion, playerLaserTextureRegion);
+                playerShipTextureRegion, playerShieldTextureRegion, playerLaserTextureRegion, rocketTextureRegion);
 
         // boss
         rapidFireBoss = new RapidFireBoss(WORLD_WIDTH/2,WORLD_HEIGHT+1,

@@ -4,10 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import java.awt.Menu;
+
 import javax.xml.soap.Text;
 
+import ca.shaxomann.spaceshooter.Screens.MenuScreen;
 import ca.shaxomann.spaceshooter.SpriteAndEffects.Laser;
 import ca.shaxomann.spaceshooter.SpriteAndEffects.Rocket;
+
+import static ca.shaxomann.spaceshooter.Screens.GameScreen.gameOverSound;
 
 public class PlayerShip extends ca.shaxomann.spaceshooter.Factory.Ship {
 
@@ -21,13 +26,14 @@ public class PlayerShip extends ca.shaxomann.spaceshooter.Factory.Ship {
                       float laserMovementSpeed, float timeBetweenShots,
                       TextureRegion shipTextureRegion,
                       TextureRegion shieldTextureRegion,
-                      TextureRegion laserTextureRegion) {
+                      TextureRegion laserTextureRegion, TextureRegion rocketTextureRegion) {
         super(xCentre, yCentre,
                 width, height,
                 movementSpeed, shield,
                 laserWidth, laserHeight,
                 laserMovementSpeed, timeBetweenShots,
                 shipTextureRegion, shieldTextureRegion, laserTextureRegion);
+        this.rocketTextureRegion = rocketTextureRegion;
 
 
 
@@ -48,6 +54,7 @@ public class PlayerShip extends ca.shaxomann.spaceshooter.Factory.Ship {
 
         return laser;
     }
+
     public boolean canRocket(){
         if(numberOfRockets>0 && Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             fireRocket();
@@ -57,19 +64,15 @@ public class PlayerShip extends ca.shaxomann.spaceshooter.Factory.Ship {
         return false;
     }
 
-    public Rocket[] fireRocket() {
-        Rocket[] rockets = new Rocket[2];
-
-        rockets[0] = new Rocket(boundingBox.x + boundingBox.width * 0.20f, boundingBox.y + boundingBox.height * 0.50f,
-                laserWidth, laserHeight,
+    public Rocket fireRocket() {
+        Rocket rockets = new Rocket(boundingBox.x + boundingBox.width * 0.50f, boundingBox.y + boundingBox.height * 0.50f,
+                laserWidth+2, laserHeight+2,
                 laserMovementSpeed, rocketTextureRegion);
-        rockets[1] = new Rocket(boundingBox.x + boundingBox.width * 0.80f, boundingBox.y + boundingBox.height * 0.50f,
-                laserWidth, laserHeight,
-                laserMovementSpeed, rocketTextureRegion);
-
-        timeSinceLastShot = 0;
 
         return rockets;
+    }
+    public void death(){
+        gameOverSound.play(0.1f,1f,0f);
     }
 
 

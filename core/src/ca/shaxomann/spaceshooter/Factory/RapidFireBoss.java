@@ -76,4 +76,5 @@ public class RapidFireBoss extends ca.shaxomann.spaceshooter.Factory.Ship {
             batch.draw(shieldTextureRegion, boundingBox.x, boundingBox.y - boundingBox.height * 0.2f, boundingBox.width, boundingBox.height);
         }
     }
+
 }
