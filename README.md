@@ -1,14 +1,8 @@
 # SpaceShooter4
 
-game is done using only java and libgdx.
+game is done using libgdx
+there is only one stage
 
-Add a splash screen
+the game is crossplatform, and can be played on both desktop and android
 
-add dependencies to make it executable on android, mac and windows
-
-starting missiles 
-
-adding new imputs
-
-added highscore system that save highest score even after closing the app
-
+its far from being finished yet
