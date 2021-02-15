@@ -1,38 +1,98 @@
-plugins {
-    id 'com.android.library'
-    id 'java-library'
+gwt {
+    gwtVersion='2.9.0' // Should match the gwt version used for building the gwt backend
+    maxHeapSize="1G" // Default 256m is not enough for gwt compiler. GWT is HUNGRY
+    minHeapSize="1G"
+
+    src = files(file("src/")) // Needs to be in front of "modules" below.
+    modules 'ca.shaxomann.spaceshooter.GdxDefinition'
+    devModules 'ca.shaxomann.spaceshooter.GdxDefinitionSuperdev'
+    project.webAppDirName = 'webapp'
+
+    compiler {
+        strict = true;
+        disableCastChecking = true;
+    }
 }
 
-android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+import org.wisepersist.gradle.plugins.gwt.GwtSuperDev
+import org.akhikhl.gretty.AppBeforeIntegrationTestTask
 
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+gretty.httpPort = 8080
+gretty.resourceBase = project.buildDir.path + "/gwt/draftOut"
+gretty.contextPath = "/"
+gretty.portPropertiesFileName = "TEMP_PORTS.properties"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-    }
+task startHttpServer () {
+    dependsOn draftCompileGwt
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    doFirst {
+        copy {
+            from "webapp"
+            into gretty.resourceBase
+        }
+
+        copy {
+            from "war"
+            into gretty.resourceBase
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+}
+
+task beforeRun(type: AppBeforeIntegrationTestTask, dependsOn: startHttpServer) {
+    // The next line allows ports to be reused instead of
+    // needing a process to be manually terminated.
+    file("build/TEMP_PORTS.properties").delete()
+    // Somewhat of a hack; uses Gretty's support for wrapping a task in
+    // a start and then stop of a Jetty server that serves files while
+    // also running the SuperDev code server.
+    integrationTestTask 'superDev'
+
+    interactive false
+}
+
+task superDev (type: GwtSuperDev) {
+    dependsOn startHttpServer
+    doFirst {
+        gwt.modules = gwt.devModules
     }
 }
 
-dependencies {
-
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+task dist(dependsOn: [clean, compileGwt]) {
+    doLast {
+        file("build/dist").mkdirs()
+        copy {
+            from "build/gwt/out"
+            into "build/dist"
+        }
+        copy {
+            from "webapp"
+            into "build/dist"
+            }
+        copy {
+            from "war"
+            into "build/dist"
+        }
+    }
 }
+
+task addSource {
+    doLast {
+        sourceSets.main.compileClasspath += files(project(':core').sourceSets.main.allJava.srcDirs)
+    }
+}
+
+tasks.compileGwt.dependsOn(addSource)
+tasks.draftCompileGwt.dependsOn(addSource)
+
+sourceCompatibility = 1.7
+dependencies {
+    implementation project(path: ':core')
+    implementation project(path: ':core')
+    implementation files('../libs/gwt-gradle-plugin-1.1.10.jar')
+    implementation files('libs/gwt-gradle-plugin-1.1.10.jar')
+    implementation project(path: ':core')
+    implementation project(path: ':core')
+}
+sourceSets.main.java.srcDirs = [ "src/" ]
+
+eclipse.project.name = appName + "-html"

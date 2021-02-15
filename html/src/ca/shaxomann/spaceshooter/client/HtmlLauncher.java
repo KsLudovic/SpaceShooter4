@@ -1,9 +1,9 @@
-package com.mygdx.game.client;
+package ca.shaxomann.spaceshooter.client;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.mygdx.game.MyGdxGame;
+import ca.shaxomann.spaceshooter.MyGdxGame;
 
 public class HtmlLauncher extends GwtApplication {
 
